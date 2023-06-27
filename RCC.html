@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>레미콘 계산기</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+        }
+
+        .calculator input {
+            width: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .calculator button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .calculator .result-container {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .calculator .result-container .result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>레미콘 계산기</h2>
+        <input type="number" id="width" placeholder="가로 입력" />
+        <br />
+        <input type="number" id="length" placeholder="세로 입력" />
+        <br />
+        <input type="number" id="height" placeholder="높이 입력" onkeydown="if (event.keyCode === 13) calculate()" />
+
+        <br />
+       <button onclick="calculate()" style="background-color: #4CAF50;">계산하기</button>
+
+        <div class="result-container">
+            <div id="result"></div>
+            <div id="result_divided"></div>
+        </div>
+    </div>
+
+    <script>
+        function formatNumber(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function calculate() {
+            var width = parseFloat(document.getElementById('width').value);
+            var height = parseFloat(document.getElementById('height').value);
+            var length = parseFloat(document.getElementById('length').value);
+
+            if (isNaN(width) || isNaN(height) || isNaN(length)) {
+                document.getElementById('result').innerHTML = '올바른 숫자를 입력하세요.';
+                document.getElementById('result_divided').innerHTML = '';
+                return;
+            }
+
+            var total = width * height * length;
+            var divided = total / 6;
+
+            document.getElementById('result').innerHTML = '필요한 루베: ' + formatNumber(total) + '루베';
+            document.getElementById('result_divided').innerHTML = '6루베 믹서트럭: ' + formatNumber(divided) + '대';
+        }
+    </script>
+</body>
+</html>
+
